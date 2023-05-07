@@ -1,10 +1,11 @@
-XQuery
+# XQuery
 
-Actividad XML - XQuery 1.
+## Actividad XML - XQuery 1.
 Ejercicio 1
 
 Dado el siguiente documento XML realiza las siguientes consultas con XQuery:
 
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <bookstore>
   <book category="COOKING">
@@ -36,11 +37,14 @@ Dado el siguiente documento XML realiza las siguientes consultas con XQuery:
     <price>39.95</price>
   </book>
 </bookstore> 
+```
 
 1.Mostrar los títulos de los libros con la etiqueta "titulo"
 
+```
 for $book in /bookstore/book
 return $book/title/text()
+```
 
 2.Mostrar los libros cuyo precio sea menor o igual a 30. Primero incluyendo la condición en la cláusula "where" y luego en la ruta del XPath.
 

@@ -77,39 +77,75 @@ return <habilidades>
 ```
 5. Muestra los nombres de los agentes cuya habilidad primaria es "Incendiario".
 ```
-
+for $juego in /videojuego/agentes/agente
+where matches($juego/habilidadPrimaria, "Incendiaria")
+return <habilidades>
+         <nombre>{$juego/nombre/text()}</nombre>
+         <primaria>{$juego/habilidadPrimaria/text()}</primaria>
+       </habilidades>
 ```
 6. Muestra los nombres de los agentes cuya habilidad ultimate es "Fénix".
 ```
-
+for $juego in /videojuego/agentes/agente
+where matches($juego/habilidadUltimate, "Fénix")
+return <habilidades>
+         <nombre>{$juego/nombre/text()}</nombre>
+         <ultimate>{$juego/habilidadUltimate/text()}</ultimate>
+       </habilidades>
 ```
 7. Muestra las habilidades primarias de los agentes cuyo nombre empieza por "J".
 ```
-
+for $juego in /videojuego/agentes/agente
+where matches($juego/nombre, "^J")
+return <habilidades>
+         <nombre>{$juego/nombre/text()}</nombre>
+         <primaria>{$juego/habilidadPrimaria/text()}</primaria>
+       </habilidades>
 ```
 8. Muestra los nombres de los agentes cuyas habilidades primarias empiezan por "Bola".
 ```
-
+for $juego in /videojuego/agentes/agente
+where matches($juego/habilidadPrimaria, "^Bola")
+return <habilidades>
+         <nombre>{$juego/nombre/text()}</nombre>
+         <primaria>{$juego/habilidadPrimaria/text()}</primaria>
+       </habilidades>
 ```
 9. Muestra los nombres de todos los agentes en orden alfabético.
 ```
-
+for $juego in /videojuego/agentes/agente
+order by $juego/nombre
+return $juego/nombre/text()
+         
 ```
 10. Muestra las habilidades primarias y secundarias de los agentes cuyo nombre contiene la letra "y".
 ```
-
+for $juego in /videojuego/agentes/agente
+where matches($juego/nombre, "y")
+return <habilidades>
+         <primaria>{$juego/habilidadPrimaria/text()}</primaria>
+         <secundaria>{$juego/habilidadSecundaria/text()}</secundaria>
+       </habilidades>
 ```
 11. Muestra los nombres de los agentes cuya habilidad ultimate contiene la palabra "cuchillos".
 ```
-
+for $juego in /videojuego/agentes/agente
+where matches($juego/habilidadUltimate, "Cuchillos")
+return $juego/nombre/text()
 ```
 12. Muestra las habilidades primarias de los agentes cuyo nombre contiene la letra "o" y la habilidad secundaria contiene la palabra "humo".
 ```
+for $juego in /videojuego/agentes/agente
+where matches($juego/habilidadSecundaria, "humo") or matches($juego/nombre, "o")
 
+return $juego/habilidadPrimaria/text()
 ```
 13. Muestra los nombres de los agentes que tienen exactamente tres habilidades.
 ```
+for $juego in /videojuego/agentes/agente
+where $juego/habilidadPrimaria or $juego/habilidadSecundaria or $juego/habilidadUltimate
 
+return $juego/nombre/text()
 ```
 14. Muestra los nombres de los agentes cuya habilidad secundaria no es "Granada Cegadora".
 ```
@@ -121,15 +157,22 @@ return <habilidades>
 ```
 16. Muestra los nombres de los agentes cuyas habilidades primarias contienen la palabra "muro" o la palabra "barrera".
 ```
+for $juego in /videojuego/agentes/agente
+where matches($juego/habilidadPrimaria, "Muro") or matches($juego/habilidadPrimaria, "barrera") 
 
+return $juego/nombre/text()
 ```
 17. Muestra las habilidades ultimates de los agentes en orden alfabético inverso.
 ```
-
+for $juego in /videojuego/agentes/agente
+order by nombre descending
+return $juego/habilidadUltimate/text()
 ```
 18. Muestra los nombres de los agentes cuya habilidad ultimate tiene una duración mayor a 8 segundos.
 ```
-
+for $juego in /videojuego/agentes/agente
+where $juego/habilidadUltimate/@duracion="8s"
+return $juego/nombre/text()
 ```
 19. Muestra el nombre del agente con la habilidad ultimate más corta.
 ```

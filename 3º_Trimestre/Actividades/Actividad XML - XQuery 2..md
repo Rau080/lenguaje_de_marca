@@ -144,16 +144,19 @@ return $juego/habilidadPrimaria/text()
 ```
 for $juego in /videojuego/agentes/agente
 where $juego/habilidadPrimaria or $juego/habilidadSecundaria or $juego/habilidadUltimate
-
 return $juego/nombre/text()
 ```
 14. Muestra los nombres de los agentes cuya habilidad secundaria no es "Granada Cegadora".
 ```
-
+for $juego in /videojuego/agentes/agente
+where $juego/habilidadPrimaria != 'Granada Cegadora'
+return $juego/nombre/text()
 ```
 15. Muestra las habilidades primarias de los agentes cuyos nombres no contienen la letra "e".
 ```
-
+for $juego in /videojuego/agentes/agente
+where not(contains($juego/nombre, 'e'))
+return $juego/habilidadPrimaria/text()
 ```
 16. Muestra los nombres de los agentes cuyas habilidades primarias contienen la palabra "muro" o la palabra "barrera".
 ```
@@ -176,21 +179,40 @@ return $juego/nombre/text()
 ```
 19. Muestra el nombre del agente con la habilidad ultimate más corta.
 ```
-
+let $min := min(/videojuego/agentes/agente/habilidadUltimate/@duracion)
+for $juego in /videojuego/agentes/agente
+where $juego/habilidadUltimate/@duracion=$min
+return $juego/nombre
 ```
 20. Muestra los nombres de los agentes que tienen habilidades primarias y secundarias con la misma duración.
 ```
-
+for $juego in /videojuego/agentes/agente
+let $ultimate := $juego/habilidadUltimate/@duracion
+let $primaria := $juego/habilidadPrimaria/@duracion
+where $ultimate = $primaria
+return $juego/nombre
 ```
 21. Muestra el nombre de los agentes que tienen habilidades primarias y secundarias que pertenecen al mismo tipo.
 ```
-
+for $juego in /videojuego/agentes/agente
+let $secundaria := $juego/habilidadSecundaria/@tipo
+let $primaria := $juego/habilidadPrimaria/@tipo
+where $secundaria = $primaria
+return $juego/nombre
 ```
 22. Muestra los nombres de los agentes cuyas habilidades primarias son de tipo "Daño" y sus habilidades secundarias son de tipo "Curación".
 ```
-
+for $juego in /videojuego/agentes/agente
+let $secundaria := $juego/habilidadSecundaria/@tipo = 'curacion'
+let $primaria := $juego/habilidadPrimaria/@tipo = 'daño'
+where $secundaria = $primaria
+return $juego/nombre
 ```
 23. Muestra los nombres de los agentes que tienen habilidades primarias y secundarias que contienen la misma palabra.
 ```
-
+for $juego in /videojuego/agentes/agente
+let $secundaria := $juego/habilidadSecundaria/@tipo = 'curacion'
+let $primaria := $juego/habilidadPrimaria/@tipo = 'daño'
+where $secundaria = $primaria
+return $juego/nombre
 ```
